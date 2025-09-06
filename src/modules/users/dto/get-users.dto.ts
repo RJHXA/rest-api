@@ -17,12 +17,12 @@ export class GetUsersDto {
   @Min(1)
   @Max(50)
   @ApiProperty({ required: false })
-  pageSize?: number;
+  page_size?: number;
 
   @IsOptional()
   @IsString()
   @ApiProperty({ required: false })
-  search?: string;
+  q?: string;
 
   @IsOptional()
   @IsEnum(UserRole)
@@ -32,5 +32,5 @@ export class GetUsersDto {
   @IsOptional()
   @IsBoolean()
   @ApiProperty({ required: false })
-  isActive?: boolean;
+  is_active?: boolean;
 }

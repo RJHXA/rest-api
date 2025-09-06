@@ -29,10 +29,10 @@ export class UserService {
   async findAll(query: GetUsersDto) {
     return await this.userRepository.findAll({
       page: query.page,
-      pageSize: query.pageSize,
-      search: query.search,
+      page_size: query.page_size,
+      q: query.q,
       role: query.role,
-      isActive: query.isActive
+      is_active: query.is_active
     });
   }
   

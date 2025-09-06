@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 import { UserRole } from "./enum/role.enum";
 
-const USERS_FILE = path.resolve(process.cwd(), "src/database/mock-users.json");
+const USERS_FILE = path.resolve(process.cwd(), process.env.USERS_FILE || "src/database/mock-users.json");
 
 @Injectable()
 export class UserRepository {
@@ -52,25 +52,25 @@ export class UserRepository {
 
   async findAll({
     page = 1,
-    pageSize = 10,
-    search,
+    page_size = 10,
+    q,
     role,
-    isActive
+    is_active
   }: {
     page?: number;
-    pageSize?: number;
-    search?: string;
+    page_size?: number;
+    q?: string;
     role?: UserRole;
-    isActive?: boolean;
+    is_active?: boolean;
   }) {
     let filtered = this.users;
     
-    if(search) {
-      const q = search.toLowerCase();
+    if(q) {
+      const search = q.toLowerCase();
       filtered = filtered.filter(
         (user) =>
-          user.name.toLowerCase().includes(q) ||
-          user.email.toLowerCase().includes(q),
+          user.name.toLowerCase().includes(search) ||
+          user.email.toLowerCase().includes(search),
       );
     }
 
@@ -78,13 +78,13 @@ export class UserRepository {
       filtered = filtered.filter((user) => user.role === role);
     }
 
-    if (isActive !== undefined) {
-      filtered = filtered.filter((user) => user.is_active === isActive);
+    if (is_active !== undefined) {
+      filtered = filtered.filter((user) => user.is_active === is_active);
     }
 
     const total = filtered.length;
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
+    const start = (page - 1) * page_size;
+    const end = start + page_size;
     const data = filtered.slice(start, end);
 
     return {
@@ -92,8 +92,8 @@ export class UserRepository {
       pagination: {
         total,
         page: page,
-        pageSize: pageSize,
-        totalPages: Math.ceil(total / pageSize),
+        pageSize: page_size,
+        totalPages: Math.ceil(total / page_size),
       }
     }
   }
