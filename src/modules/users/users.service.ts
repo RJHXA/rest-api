@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-users.dto";
 import { GetUsersDto } from "./dto/get-users.dto";
+import { UpdateUserDto } from "./dto/update-users.dto";
 import { UserRepository } from "./users.repository";
 
 
@@ -39,11 +40,25 @@ export class UserService {
     return user;
   }
 
-  async update() {
+  async update(id: string, data: UpdateUserDto) {
+    this.findOne(id);
 
+    return await this.userRepository.update({
+      id,
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      isActive: data.isActive
+    });
   }
 
-  async delete() {
+  async delete(id: string) {
+    this.findOne(id);
 
+    await this.userRepository.delete(id);
+
+    return {
+      message: "User Deleted with Success!"
+    }
   }
 }

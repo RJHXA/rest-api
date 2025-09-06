@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestj
 import { ApiTags } from "@nestjs/swagger";
 import { CreateUserDto } from "./dto/create-users.dto";
 import { GetUsersDto } from "./dto/get-users.dto";
+import { UpdateUserDto } from "./dto/update-users.dto";
 import { UserService } from "./users.service";
 
 @Controller('users')
@@ -27,8 +28,15 @@ export class UserController {
   }
 
   @Patch(':id')
-  async update() {}
+  async update(
+    @Param('id') id: string,
+    @Body() bodyData: UpdateUserDto
+  ) {
+    return await this.userService.update(id, bodyData);
+  }
 
   @Delete(':id')
-  async delete() {}
+  async delete(@Param('id') id: string) {
+    return await this.userService.delete(id);
+  }
 }

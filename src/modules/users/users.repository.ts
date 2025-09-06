@@ -85,11 +85,37 @@ export class UserRepository {
     return this.users.find(user => user.id === Number(id));
   }
 
-  async update() {
+  async update({
+    id,
+    name,
+    email,
+    role,
+    isActive
+  }: {
+    id: string;
+    name?: string;
+    email?: string;
+    role?: UserRole;
+    isActive?: boolean;
+  }) {
+    const index = this.users.findIndex(u => u.id === Number(id));
 
+    const updatedUser = {
+      ...this.users[index],
+      name: name ?? this.users[index].name,
+      email: email ?? this.users[index].email,
+      role: role ?? this.users[index].role,
+      is_active: isActive ?? this.users[index].is_active,
+    };
+
+    this.users[index] = updatedUser;
+
+    return updatedUser;
   }
 
-  async delete() {
+  async delete(id: string) {
+    const index = this.users.findIndex(u => u.id === Number(id));
 
+    this.users.splice(index, 1);
   }
 }
