@@ -1,10 +1,26 @@
 import { Injectable } from "@nestjs/common";
-import Users from "../../database/mock-users.json";
+import { promises as fs } from "fs";
+import * as path from "path";
 import { UserRole } from "./enum/role.enum";
+
+const USERS_FILE = path.resolve(process.cwd(), "src/database/mock-users.json");
 
 @Injectable()
 export class UserRepository {
-  private readonly users = Users;
+  private users: any[] = [];
+
+  constructor() {
+    this.loadUsers();
+  }
+
+  private async loadUsers() {
+    const data = await fs.readFile(USERS_FILE, "utf-8");
+    this.users = JSON.parse(data);
+  }
+
+  private async saveUsers() {
+    await fs.writeFile(USERS_FILE, JSON.stringify(this.users, null, 2));
+  }
 
   async create({
     name,
@@ -29,6 +45,7 @@ export class UserRepository {
     };
 
     this.users.push(newUser);
+    await this.saveUsers();
 
     return newUser;
   }
@@ -109,6 +126,7 @@ export class UserRepository {
     };
 
     this.users[index] = updatedUser;
+    await this.saveUsers();
 
     return updatedUser;
   }
@@ -117,5 +135,15 @@ export class UserRepository {
     const index = this.users.findIndex(u => u.id === Number(id));
 
     this.users.splice(index, 1);
+    await this.saveUsers();
+  }
+
+  async findOneByEmail(email: string) {
+    const lowerEmail = email.toLowerCase();
+    const users = this.users.filter(
+      (user) => user.email.toLowerCase().includes(lowerEmail),
+    );
+
+    return users;
   }
 }
