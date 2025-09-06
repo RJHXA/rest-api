@@ -1,13 +1,36 @@
 import { Injectable } from "@nestjs/common";
 import Users from "../../database/mock-users.json";
-import { UserRole } from "./dto/get-users.dto";
+import { UserRole } from "./enum/role.enum";
 
 @Injectable()
 export class UserRepository {
   private readonly users = Users;
 
-  async create() {
+  async create({
+    name,
+    email,
+    role,
+    isActive
+  }: {
+    name: string;
+    email: string;
+    role: UserRole;
+    isActive: boolean;
+  }) {
+    const lastUserId = this.users.length;
 
+    const newUser = {
+      id: lastUserId + 1,
+      name,
+      email,
+      role,
+      is_active: isActive,
+      created_at: new Date().toISOString(),
+    };
+
+    this.users.push(newUser);
+
+    return newUser;
   }
 
   async findAll({

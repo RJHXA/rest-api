@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { CreateUserDto } from "./dto/create-users.dto";
 import { GetUsersDto } from "./dto/get-users.dto";
 import { UserService } from "./users.service";
 
@@ -11,7 +12,9 @@ export class UserController {
   ) {}
 
   @Post()
-  async create() {}
+  async create(@Body() bodyData: CreateUserDto) {
+    return await this.userService.create(bodyData);
+  }
 
   @Get()
   async findAll(@Query() query: GetUsersDto) {

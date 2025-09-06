@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-users.dto";
 import { GetUsersDto } from "./dto/get-users.dto";
 import { UserRepository } from "./users.repository";
 
@@ -9,8 +10,13 @@ export class UserService {
     private readonly userRepository: UserRepository
   ) {}
 
-  async create() {
-
+  async create(data: CreateUserDto) {
+    return await this.userRepository.create({
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      isActive: data.isActive
+    });
   }
 
   async findAll(query: GetUsersDto) {
