@@ -39,11 +39,16 @@ export class GetUsersDto {
 
   @IsOptional()
   @Transform(({ value }) => {
-    if (value === "true") return true;
-    if (value === "false") return false;
+    if (value === 'true') return true;
+    if (value === 'false') return false;
     return value;
   })
   @IsBoolean()
   @ApiProperty({ required: false })
   is_active?: boolean;
+
+  @IsOptional()
+  @IsEnum(['asc', 'desc'], { message: 'order must be asc or desc' })
+  @ApiProperty({ required: false })
+  order?: 'asc' | 'desc';
 }

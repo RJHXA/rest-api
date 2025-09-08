@@ -60,14 +60,16 @@ export class UserRepository {
     q,
     role,
     is_active,
+    order,
   }: {
     page?: number;
     page_size?: number;
     q?: string;
     role?: UserRole;
     is_active?: boolean;
+    order?: 'asc' | 'desc';
   }) {
-    let filtered = this.users;
+    let filtered = [...this.users];
 
     if (q) {
       const search = q.toLowerCase();
@@ -84,6 +86,14 @@ export class UserRepository {
 
     if (is_active !== undefined) {
       filtered = filtered.filter((user) => user.is_active === is_active);
+    }
+
+    if (order) {
+      filtered.sort((a, b) => {
+        const dateA = new Date(a.created_at).getTime();
+        const dateB = new Date(b.created_at).getTime();
+        return order === 'asc' ? dateA - dateB : dateB - dateA;
+      });
     }
 
     const total = filtered.length;

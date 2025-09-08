@@ -34,6 +34,7 @@ export class UserService {
       q: query.q,
       role: query.role,
       is_active: query.is_active,
+      order: query.order,
     });
   }
 
