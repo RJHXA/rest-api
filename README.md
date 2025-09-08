@@ -82,6 +82,10 @@ To run the end-to-end tests for the User Module:
 npm run test:e2e
 ```
 
+### Tests Results
+
+![print of the results of e2e tests](image.png)
+
 ## 📌 API Examples
 
 For a better experience, you can explore and test all endpoints using the **Swagger UI** (available while the application is running) at:  
