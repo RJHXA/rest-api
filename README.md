@@ -65,14 +65,6 @@ cp .env.example .env
 npm run start
 ```
 
-## ♻️ Run tests
-
-Run end-to-end tests for the User Module:
-
-```bash
-npm run test:e2e
-```
-
 ## 📌 API Examples
 
 For a better experience, you can explore and test all endpoints using the **Swagger UI** (available while the application is running) at:  
@@ -91,18 +83,21 @@ For a better experience, you can explore and test all endpoints using the **Swag
 ```
 
 ### Get User by ID
+Change `:id` for a valid number on user mock
 ```
-  curl http://localhost:3000/users/1
+  curl http://localhost:3000/users/:id
 ```
 
 ### Update User
+Change `:id` for a valid number on user mock
 ```
-  curl -X PATCH http://localhost:3000/users/1 \
+  curl -X PATCH http://localhost:3000/users/:id \
   -H "Content-Type: application/json" \
   -d '{"name": "Jane Doe"}'
 ```
 
 ### Delete User
+Change `:id` for a valid number on user mock
 ```
-  curl -X DELETE http://localhost:3000/users/1
+  curl -X DELETE http://localhost:3000/users/:id
 ```
