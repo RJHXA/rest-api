@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Bruno Nogueira",
+    "email": "bnogueira1@widgets.org",
+    "role": "manager",
+    "is_active": true,
+    "created_at": "2024-05-26T17:11:48Z"
+  },
+  {
+    "id": 2,
+    "name": "Felipe Ferraz",
+    "email": "fferraz2@contoso.dev",
+    "role": "analyst",
+    "is_active": true,
+    "created_at": "2025-02-28T21:24:25Z"
+  },
+  {
+    "id": 3,
+    "name": "Tiago Hoffmann",
+    "email": "thoffmann3@acme.io",
+    "role": "analyst",
+    "is_active": true,
+    "created_at": "2024-09-10T22:07:40Z"
+  },
+  {
+    "id": 4,
+    "name": "Lucas Hoffmann",
+    "email": "lhoffmann4@contoso.dev",
+    "role": "admin",
+    "is_active": false,
+    "created_at": "2024-12-27T19:06:35Z"
+  },
+  {
+    "id": 5,
+    "name": "Diego Gomes",
+    "email": "dgomes5@contoso.dev",
+    "role": "viewer",
+    "is_active": true,
+    "created_at": "2024-02-02T21:47:39Z"
+  }
+]

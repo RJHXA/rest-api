@@ -1,25 +1,26 @@
 import { Injectable } from "@nestjs/common";
 import { promises as fs } from "fs";
 import * as path from "path";
+import { Config } from "../../config/config";
 import { UserRole } from "./enum/role.enum";
-
-const USERS_FILE = path.resolve(process.cwd(), process.env.USERS_FILE || "src/database/mock-users.json");
 
 @Injectable()
 export class UserRepository {
   private users: any[] = [];
+  private USERS_FILE: string;
 
   constructor() {
+    this.USERS_FILE = path.resolve(Config.USERS_FILE || "src/database/mock-users.json");
     this.loadUsers();
   }
 
   private async loadUsers() {
-    const data = await fs.readFile(USERS_FILE, "utf-8");
+    const data = await fs.readFile(this.USERS_FILE, "utf-8");
     this.users = JSON.parse(data);
   }
 
   private async saveUsers() {
-    await fs.writeFile(USERS_FILE, JSON.stringify(this.users, null, 2));
+    await fs.writeFile(this.USERS_FILE, JSON.stringify(this.users, null, 2));
   }
 
   async create({
