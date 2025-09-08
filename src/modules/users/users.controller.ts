@@ -1,16 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { CreateUserDto } from "./dto/create-users.dto";
-import { GetUsersDto } from "./dto/get-users.dto";
-import { UpdateUserDto } from "./dto/update-users.dto";
-import { UserService } from "./users.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from './dto/create-users.dto';
+import { GetUsersDto } from './dto/get-users.dto';
+import { UpdateUserDto } from './dto/update-users.dto';
+import { UserService } from './users.service';
 
 @Controller('users')
 @ApiTags('users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() bodyData: CreateUserDto) {
@@ -28,10 +35,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() bodyData: UpdateUserDto
-  ) {
+  async update(@Param('id') id: string, @Body() bodyData: UpdateUserDto) {
     return await this.userService.update(id, bodyData);
   }
 

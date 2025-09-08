@@ -6,40 +6,7 @@ This project demonstrates clean architecture, DTO validation, and CRUD operation
 ## 🧰 Tech Stack
 - **NestJS** — Node.js framework  
 - **TypeScript** — Strongly typed JavaScript  
-- **Jest** — Testing framework  
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/RJHXA/rest-api.git
-cd rest-api
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Setup environment variables
-Copy the .env.example file to .env and adjust if needed:
-```bash
-cp .env.example .env
-```
-
-### 4. Run project
-```bash
-npm run start
-```
-
-## ♻️ Run tests
-
-Run end-to-end tests for the User Module:
-
-```bash
-npm run test:e2e
-```
-
+- **Jest** — Testing framework
 
 ## 📂 Project Structure
 The main project structure is as follows:
@@ -47,6 +14,8 @@ The main project structure is as follows:
 ```
 src/
  ├── app.module.ts
+ ├── config
+ │   └── config.ts
  ├── database/
  │   └── mock-users.json
  ├── main.ts
@@ -62,6 +31,46 @@ src/
          ├── users.module.ts
          ├── users.repository.ts
          └── users.service.ts
+```
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/RJHXA/rest-api.git
+cd rest-api
+```
+
+### 2. Install dependencies
+Prerequisite: Node.js and npm must be installed on your machine.
+
+```bash
+npm install
+```
+
+### 3. Setup environment variables
+Copy the .env.example file to .env and adjust if needed:
+```bash
+cp .env.example .env
+```
+
+- *PORT:* The port on which the project will run (recommended: 3000, since all examples use this port)
+
+- *NODE_ENV:* The environment for the application (development, test, production, etc.)
+
+- *USERS_FILE:* Path to the mock users JSON file
+
+### 4. Run project
+```bash
+npm run start
+```
+
+## ♻️ Run tests
+
+Run end-to-end tests for the User Module:
+
+```bash
+npm run test:e2e
 ```
 
 ## 📌 API Examples

@@ -1,21 +1,24 @@
-import { Injectable } from "@nestjs/common";
-import { promises as fs } from "fs";
-import * as path from "path";
-import { Config } from "../../config/config";
-import { UserRole } from "./enum/role.enum";
+import { Injectable } from '@nestjs/common';
+import { promises as fs } from 'fs';
+import * as path from 'path';
+import { Config } from '../../config/config';
+import { UserRole } from './enum/role.enum';
+import { User } from './interfaces/user.interface';
 
 @Injectable()
 export class UserRepository {
-  private users: any[] = [];
+  private users: User[] = [];
   private USERS_FILE: string;
 
   constructor() {
-    this.USERS_FILE = path.resolve(Config.USERS_FILE || "src/database/mock-users.json");
+    this.USERS_FILE = path.resolve(
+      Config.USERS_FILE || 'src/database/mock-users.json',
+    );
     this.loadUsers();
   }
 
   private async loadUsers() {
-    const data = await fs.readFile(this.USERS_FILE, "utf-8");
+    const data = await fs.readFile(this.USERS_FILE, 'utf-8');
     this.users = JSON.parse(data);
   }
 
@@ -27,7 +30,7 @@ export class UserRepository {
     name,
     email,
     role,
-    isActive
+    isActive,
   }: {
     name: string;
     email: string;
@@ -56,7 +59,7 @@ export class UserRepository {
     page_size = 10,
     q,
     role,
-    is_active
+    is_active,
   }: {
     page?: number;
     page_size?: number;
@@ -65,8 +68,8 @@ export class UserRepository {
     is_active?: boolean;
   }) {
     let filtered = this.users;
-    
-    if(q) {
+
+    if (q) {
       const search = q.toLowerCase();
       filtered = filtered.filter(
         (user) =>
@@ -95,12 +98,12 @@ export class UserRepository {
         page: page,
         pageSize: page_size,
         totalPages: Math.ceil(total / page_size),
-      }
-    }
+      },
+    };
   }
-  
+
   async findOne(id: string) {
-    return this.users.find(user => user.id === Number(id));
+    return this.users.find((user) => user.id === Number(id));
   }
 
   async update({
@@ -108,7 +111,7 @@ export class UserRepository {
     name,
     email,
     role,
-    isActive
+    isActive,
   }: {
     id: string;
     name?: string;
@@ -116,7 +119,7 @@ export class UserRepository {
     role?: UserRole;
     isActive?: boolean;
   }) {
-    const index = this.users.findIndex(u => u.id === Number(id));
+    const index = this.users.findIndex((u) => u.id === Number(id));
 
     const updatedUser = {
       ...this.users[index],
@@ -133,7 +136,7 @@ export class UserRepository {
   }
 
   async delete(id: string) {
-    const index = this.users.findIndex(u => u.id === Number(id));
+    const index = this.users.findIndex((u) => u.id === Number(id));
 
     this.users.splice(index, 1);
     await this.saveUsers();
@@ -141,8 +144,8 @@ export class UserRepository {
 
   async findOneByEmail(email: string) {
     const lowerEmail = email.toLowerCase();
-    const users = this.users.filter(
-      (user) => user.email.toLowerCase().includes(lowerEmail),
+    const users = this.users.filter((user) =>
+      user.email.toLowerCase().includes(lowerEmail),
     );
 
     return users;
