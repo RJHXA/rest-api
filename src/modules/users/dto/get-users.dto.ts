@@ -17,7 +17,7 @@ export class GetUsersDto {
   @IsNumber()
   @Min(1)
   @ApiProperty({ required: false })
-  page?: number;
+  page?: number = 1;
 
   @IsOptional()
   @Transform(({ value }) => Number(value))
@@ -25,7 +25,7 @@ export class GetUsersDto {
   @Min(1)
   @Max(50)
   @ApiProperty({ required: false })
-  page_size?: number;
+  page_size?: number = 10;
 
   @IsOptional()
   @IsString()

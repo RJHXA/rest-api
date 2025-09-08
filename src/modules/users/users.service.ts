@@ -29,8 +29,8 @@ export class UserService {
 
   async findAll(query: GetUsersDto) {
     return await this.userRepository.findAll({
-      page: query.page,
-      page_size: query.page_size,
+      page: Number(query.page),
+      page_size: Number(query.page_size),
       q: query.q,
       role: query.role,
       is_active: query.is_active,

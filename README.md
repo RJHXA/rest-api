@@ -65,6 +65,16 @@ cp .env.example .env
 npm run start
 ```
 
+## ♻️ Run tests
+
+To ensure the tests do not overwrite the mock users you created, a separate mock users dataset is used exclusively for testing purposes.
+
+To run the end-to-end tests for the User Module:
+
+```bash
+npm run test:e2e
+```
+
 ## 📌 API Examples
 
 For a better experience, you can explore and test all endpoints using the **Swagger UI** (available while the application is running) at:  

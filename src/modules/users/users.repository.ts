@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { Config } from '../../config/config';
@@ -6,7 +6,7 @@ import { UserRole } from './enum/role.enum';
 import { User } from './interfaces/user.interface';
 
 @Injectable()
-export class UserRepository {
+export class UserRepository implements OnModuleInit {
   private users: User[] = [];
   private USERS_FILE: string;
 
@@ -14,7 +14,10 @@ export class UserRepository {
     this.USERS_FILE = path.resolve(
       Config.USERS_FILE || 'src/database/mock-users.json',
     );
-    this.loadUsers();
+  }
+
+  async onModuleInit() {
+    await this.loadUsers();
   }
 
   private async loadUsers() {
