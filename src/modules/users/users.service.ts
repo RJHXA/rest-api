@@ -48,7 +48,7 @@ export class UserService {
   }
 
   async update(id: string, data: UpdateUserDto) {
-    this.findOne(id);
+    await this.findOne(id);
 
     return await this.userRepository.update({
       id,
@@ -60,7 +60,7 @@ export class UserService {
   }
 
   async delete(id: string) {
-    this.findOne(id);
+    await this.findOne(id);
 
     await this.userRepository.delete(id);
 
