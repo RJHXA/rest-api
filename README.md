@@ -60,6 +60,13 @@ cp .env.example .env
 
 - *USERS_FILE:* Path to the mock users JSON file
 
+Example `.env` file used in the project:
+```bash
+  USERS_FILE=src/database/mock-users.json
+  PORT=3000
+  NODE_ENV=development
+```
+
 ### 4. Run project
 ```bash
 npm run start
